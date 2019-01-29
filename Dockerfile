@@ -29,7 +29,10 @@ RUN wget ${BENTO4_BASE_URL}${BENTO4_ZIP} && \
     rm -rf ${BENTO4_PATH}/${BENTO4_FILE} && \
     cd / && \
     rm -rf /tmp/bento4 && \
-    apt-get purge -y unzip mercurial mercurial-common curl git gawk zip wget systemd
+    apt-get update && \
+    apt-get purge -y unzip curl mercurial mercurial-common zip wget systemd && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
