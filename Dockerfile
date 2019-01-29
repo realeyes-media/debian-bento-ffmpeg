@@ -26,11 +26,11 @@ RUN wget ${BENTO4_BASE_URL}${BENTO4_ZIP} && \
     cd ${BENTO4_PATH}/${BENTO4_FILE} && \
     mv * ${BENTO4_PATH} && \
     rm -rf ${BENTO4_PATH}/docs && \
-    rm -rf ${BENTO4_PATH}/${BENTO4_FILE}
+    rm -rf ${BENTO4_PATH}/${BENTO4_FILE} && \
+    cd / && \
+    rm -rf /tmp/bento4 && \
+    apt-get purge -y unzip mercurial mercurial-common curl git gawk zip wget systemd
 
 WORKDIR /app
-
-# Remove unnecessary software
-RUN rm -rf /tmp/bento4 && apt-get update && apt-get purge -y unzip mercurial mercurial-common curl git gawk zip wget systemd
 
 CMD [ "mp4info" ]
