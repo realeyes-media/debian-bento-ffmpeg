@@ -10,7 +10,7 @@ ENV PATH="$PATH:/opt/bento4/bin" \
     BENTO4_TYPE="SRC"
 
 # Install Dependencies and FFMPEG
-RUN install_packages git openssh-client gawk tzdata ffmpeg openntpd scons unzip zip
+RUN install_packages git openssh-client gawk tzdata ffmpeg openntpd scons unzip zip wget
 
 # Install Bento4
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -29,6 +29,6 @@ RUN mkdir -p ${BENTO4_PATH} && \
     cp -a ${BENTO4_PATH}/Source/Python/wrappers/. ${BENTO4_PATH}/bin
 
 # Remove unnecessary software
-RUN apt-get update && apt-get purge -y unzip mercurial mercurial-common curl git gawk zip
+RUN apt-get update && apt-get purge -y unzip mercurial mercurial-common curl git gawk zip wget
 
 CMD [ "mp4info", "--version" ]
