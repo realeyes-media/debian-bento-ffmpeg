@@ -1,6 +1,8 @@
+FROM bitnami/python:2.7.15-debian-9 as python
+
 FROM bitnami/minideb:stretch
 
-ENV PATH="$PATH:/opt/bento4/bin" \
+ENV PATH="$PATH:/opt/bento4/bin:/opt/bitnami/python/bin" \
     BENTO4_BIN="/opt/bento4/bin" \
     BENTO4_BASE_URL="http://zebulon.bok.net/Bento4/binaries/" \
     BENTO4_TYPE="SDK" \
@@ -33,6 +35,9 @@ RUN wget ${BENTO4_BASE_URL}${BENTO4_ZIP} && \
     apt-get purge -y unzip curl mercurial mercurial-common zip wget systemd && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+    
+# Add Python from Bitnami base image
+COPY --from=python /opt/bitnami/python /opt/bitnami/python
 
 WORKDIR /app
 
